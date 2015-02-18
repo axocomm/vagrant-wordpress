@@ -23,7 +23,7 @@ class wordpress::setup {
 
   exec {'create-wordpress-db':
     path    => '/usr/bin',
-    unless  => "test $(echo \"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${::mysql_wordpress_dbname}'\") -gt 0",
+    unless  => "test $(echo \"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${::mysql_wordpress_dbname}'\" | wc -l) -gt 0",
     command => "mysql -uroot -p${::mysql_root_password} -e 'CREATE SCHEMA ${::mysql_wordpress_dbname}'",
     require => Exec['set-mysql-root-password']
   }
@@ -33,6 +33,14 @@ class wordpress::setup {
     unless  => "mysqladmin -u${::mysql_wordpress_user} -p${::mysql_wordpress_password} status",
     command => "mysql -uroot -p${::mysql_root_password} -e \"GRANT ALL ON ${::mysql_wordpress_dbname}.* TO '${::mysql_wordpress_user}' IDENTIFIED BY '${::mysql_wordpress_password}'; FLUSH PRIVILEGES\"",
     require => Exec['create-wordpress-db']
+  }
+
+  exec {'configure-wp':
+    path => '/usr/bin:/usr/local/bin',
+    cwd => '/vagrant',
+    unless => 'test -f wp-config.php',
+    command => "wp core config --dbname=${::mysql_wordpress_dbname} --dbuser=${::mysql_wordpress_user} --dbpass=${::mysql_wordpress_password}",
+    require => Exec['create-wordpress-user']
   }
 }
 
