@@ -3,3 +3,4 @@
 # }
 
 class {'nginx': }
+class {'mariadb::install': }
