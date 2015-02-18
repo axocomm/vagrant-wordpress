@@ -76,7 +76,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppet.module_path    = 'puppet/modules'
     puppet.options        = '--verbose --debug'
     puppet.facter         = {
-      'mysql_password' => 'vagrant'
+      'mysql_root_password'      => 'vagrant',
+      'mysql_wordpress_user'     => 'wordpress',
+      'mysql_wordpress_dbname'   => 'wordpress',
+      'mysql_wordpress_password' => 'wordpress'
     }
   end
 end
