@@ -11,3 +11,11 @@ class mariadb::install {
     subscribe   => Package['mariadb-server']
   }
 }
+
+class mariadb::php5-mysql {
+  package {'php5-mysql':
+    ensure  => installed,
+    require => Package['php5-fpm', 'mariadb-server'],
+    notify  => Service['php5-fpm']
+  }
+}
