@@ -1,6 +1,11 @@
 class php5-fpm {
+  include apt
+
+  apt::ppa{'ppa:ondrej/php5-5.6': }
+
   package {'php5-fpm':
-    ensure => installed
+    ensure  => installed,
+    require => Apt::Ppa['ppa:ondrej/php5-5.6']
   }
 
   service {'php5-fpm':
