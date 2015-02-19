@@ -38,4 +38,12 @@ server {
     location ~/\.ht {
         deny all;
     }
+
+    location ~/Vagrantfile(\.sample)? {
+        deny all;
+    }
+
+    location /puppet/ {
+        deny all;
+    }
 }
