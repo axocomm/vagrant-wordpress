@@ -1,7 +1,15 @@
 class php5-fpm {
   include apt
 
-  apt::ppa{'ppa:ondrej/php5-5.6': }
+  apt::key {'ppa:ondrej/php5-5.6':
+    ensure      => present,
+    key_server  => 'hkp://keyserver.ubuntu.com:80',
+    key         => 'E5267A6C'
+  }
+
+  apt::ppa {'ppa:ondrej/php5-5.6':
+    require => Apt::Key['ppa:ondrej/php5-5.6']
+  }
 
   package {'php5-fpm':
     ensure  => installed,
