@@ -1,24 +1,24 @@
-# /etc/nginx/sites-available/<%= name %>
+# /etc/nginx/sites-available/<%= @name %>
 
 server {
-    listen      <%= listen_port %>;
-    server_name <%= name %><% aliases.each do |a| -%> <%= a %><% end -%>;
+    listen      <%= @listen_port %>;
+    server_name <%= @name %><% @aliases.each do |a| -%> <%= a %><% end -%>;
 
     client_max_body_size 100M;
 
-    access_log  /var/log/nginx/<%= name %>.access.log;
-    error_log   /var/log/nginx/<%= name %>.error.log;
+    access_log  /var/log/nginx/<%= @name %>.access.log;
+    error_log   /var/log/nginx/<%= @name %>.error.log;
 
-    root        <%= wwwroot %>;
+    root        <%= @wwwroot %>;
 
     location / {
         try_files $uri $uri/ /index.php;
 
-        index <%= index %>;
+        index <%= @index %>;
         location ~ \.php$ {
             fastcgi_pass 127.0.0.1:9000;
             fastcgi_index index.php;
-            fastcgi_param SCRIPT_FILENAME <%= wwwroot %>$fastcgi_script_name;
+            fastcgi_param SCRIPT_FILENAME <%= @wwwroot %>$fastcgi_script_name;
             fastcgi_param PATH_INFO $fastcgi_script_name;
             fastcgi_param PHP_VALUE "allow_url_fopen=on";
 
