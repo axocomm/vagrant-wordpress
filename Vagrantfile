@@ -79,7 +79,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       'mysql_root_password'      => 'vagrant',
       'mysql_wordpress_user'     => 'wordpress',
       'mysql_wordpress_dbname'   => 'wordpress',
-      'mysql_wordpress_password' => 'wordpress'
+      'mysql_wordpress_password' => 'wordpress',
+      'wordpress_url'            => "http://#{config.vm.hostname}.dev",
+      'wordpress_title'          => 'The Title',
+      'wordpress_admin_user'     => 'vagrant',
+      'wordpress_admin_password' => 'vagrant',
+      'wordpress_admin_email'    => "vagrant@#{config.vm.hostname}.dev"
     }
   end
 end
