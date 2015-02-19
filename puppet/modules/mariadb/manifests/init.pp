@@ -20,11 +20,11 @@ class mariadb::install {
     require => Apt::Source['mariadb']
   }
 
-  exec {'Set MySQL root password':
+  exec {'set-mysql-root-password':
     path        => '/bin:/usr/bin',
-    unless      => "mysqladmin -uroot -p${::mysql_password} status",
+    unless      => "mysqladmin -uroot -p${::mysql_root_password} status",
     refreshonly => true,
-    command     => "mysqladmin -uroot password ${::mysql_password}",
+    command     => "mysqladmin -uroot password ${::mysql_root_password}",
     subscribe   => Package['mariadb-server-10.0']
   }
 }
