@@ -1,5 +1,7 @@
-.vagrant/
 # -*- mode: gitignore; -*-
+.vagrant/
+Vagrantfile
+
 *~
 \#*\#
 /.emacs.desktop
