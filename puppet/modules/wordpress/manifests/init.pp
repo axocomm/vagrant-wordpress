@@ -26,8 +26,7 @@ class wordpress::setup {
 
   exec {'create-wordpress-db':
     path    => '/usr/bin',
-    unless  => "test $(echo \"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${::mysql_wordpress_dbname}'\" | wc -l) -gt 1",
-    command => "mysql -uroot -p${::mysql_root_password} -e 'CREATE SCHEMA ${::mysql_wordpress_dbname}'",
+    command => "mysql -uroot -p${::mysql_root_password} -e 'CREATE SCHEMA IF NOT EXISTS ${::mysql_wordpress_dbname}'",
     require => Exec['set-mysql-root-password']
   }
 
@@ -51,8 +50,9 @@ class wordpress::setup {
   exec {'finish-wp-install':
     path    => '/usr/bin:/usr/local/bin',
     cwd     => '/vagrant',
+    user    => 'vagrant',
     unless  => 'wp core is-installed',
-    command => "wp core install --url=${::wordpress_url} --title=${::wordpress_title} --admin_user=${::wordpress_admin_user} --admin_password=${::wordpress_admin_password} --admin_email=${::wordpress_admin_email}",
+    command => "wp core install --url='${::wordpress_url}' --title='${::wordpress_title}' --admin_user='${::wordpress_admin_user}' --admin_password='${::wordpress_admin_password}' --admin_email='${::wordpress_admin_email}'",
     require => Exec['configure-wp']
   }
 }
