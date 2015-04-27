@@ -3,7 +3,7 @@ class wordpress::wp-cli {
     path    => '/bin:/usr/bin',
     unless  => 'test -f /tmp/wp-cli.phar -o -f /usr/local/bin/wp',
     command => 'curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar > /tmp/wp-cli.phar',
-    require => Package['php5-fpm']
+    require => Package['php5-fpm', 'php5-cli']
   }
 
   exec {'install-wp-cli':

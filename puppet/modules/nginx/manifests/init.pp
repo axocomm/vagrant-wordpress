@@ -3,6 +3,10 @@ class nginx {
     ensure => installed
   }
 
+  package {'apache2':
+    ensure => absent
+  }
+
   service {'nginx':
     ensure     => running,
     enable     => true,
