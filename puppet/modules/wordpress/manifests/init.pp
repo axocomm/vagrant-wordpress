@@ -44,7 +44,8 @@ class wordpress::setup {
     command => "wp core config --dbname=${::mysql_wordpress_dbname} --dbuser=${::mysql_wordpress_user} --dbpass=${::mysql_wordpress_password}",
     user    => 'vagrant',
     require => [Exec['create-wordpress-user'],
-                Exec['install-wp-cli']]
+                Exec['install-wp-cli'],
+                Exec['download-wp-core']]
   }
 
   exec {'finish-wp-install':
