@@ -3,15 +3,17 @@ class mariadb::install {
 
   apt::key {'mariadb':
     ensure     => present,
-    key        => '0xcbcb082a1bb943db',
-    key_server => 'hkp://keyserver.ubuntu.com:80'
+    id         => 'cbcb082a1bb943db',
+    server     => 'hkp://keyserver.ubuntu.com:80'
   }
 
   apt::source {'mariadb':
     location    => 'http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.0/ubuntu',
     release     => 'trusty',
     repos       => 'main',
-    include_src => false,
+    include     => {
+      'src' => false
+    },
     require     => Apt::Key['mariadb']
   }
 
