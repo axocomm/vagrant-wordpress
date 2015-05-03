@@ -17,9 +17,16 @@ class mariadb::install {
     require     => Apt::Key['mariadb']
   }
 
+  exec {'update-apt':
+    path    => '/usr/bin',
+    unless  => 'dpkg -s mariadb-server-10.0',
+    command => 'apt-get update',
+    require => Apt::Source['mariadb']
+  }
+
   package {['mariadb-server-10.0', 'mariadb-client-10.0']:
     ensure  => installed,
-    require => Apt::Source['mariadb']
+    require => Exec['update-apt']
   }
 
   exec {'set-mysql-root-password':
