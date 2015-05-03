@@ -21,7 +21,8 @@ class wordpress::setup {
     user    => 'vagrant',
     unless  => 'test -f wp-load.php',
     command => 'wp core download',
-    require => Exec['install-wp-cli']
+    require => [Exec['install-wp-cli'],
+                Package['php5-cli']]
   }
 
   exec {'create-wordpress-db':
