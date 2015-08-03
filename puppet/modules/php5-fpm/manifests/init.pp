@@ -1,14 +1,24 @@
 class php5-fpm {
   include apt
 
+  package {'software-properties-common':
+    ensure => present
+  }
+
+  package {'ca-certificates':
+    ensure => present
+  }
+
   apt::key {'ppa:ondrej/php5-5.6':
-    ensure      => present,
-    server      => 'hkp://keyserver.ubuntu.com:80',
-    id          => 'E5267A6C'
+    ensure => present,
+    server => 'hkp://keyserver.ubuntu.com:80',
+    id     => 'E5267A6C'
   }
 
   apt::ppa {'ppa:ondrej/php5-5.6':
-    require => Apt::Key['ppa:ondrej/php5-5.6']
+    require => [Apt::Key['ppa:ondrej/php5-5.6'],
+                Package['software-properties-common'],
+                Package['ca-certificates']]
   }
 
   package {['php5-fpm', 'php5-cli']:
