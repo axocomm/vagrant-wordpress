@@ -18,7 +18,8 @@ class php5-fpm {
   apt::ppa {'ppa:ondrej/php5-5.6':
     require => [Apt::Key['ppa:ondrej/php5-5.6'],
                 Package['software-properties-common'],
-                Package['ca-certificates']]
+                Package['ca-certificates']],
+    notify  => Exec['apt_update']
   }
 
   package {['php5-fpm', 'php5-cli']:
