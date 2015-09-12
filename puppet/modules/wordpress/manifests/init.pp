@@ -17,7 +17,7 @@ class wordpress::wp-cli {
 class wordpress::setup {
   exec {'download-wp-core':
     path    => '/usr/bin:/usr/local/bin',
-    cwd     => '/vagrant',
+    cwd     => "${::wwwroot}",
     user    => 'vagrant',
     unless  => 'test -f wp-load.php',
     command => 'wp core download',
@@ -40,7 +40,7 @@ class wordpress::setup {
 
   exec {'configure-wp':
     path    => '/usr/bin:/usr/local/bin',
-    cwd     => '/vagrant',
+    cwd     => "${::wwwroot}",
     unless  => 'test -f wp-config.php',
     command => "wp core config --dbname=${::mysql_wordpress_dbname} --dbuser=${::mysql_wordpress_user} --dbpass=${::mysql_wordpress_password}",
     user    => 'vagrant',
@@ -51,7 +51,7 @@ class wordpress::setup {
 
   exec {'finish-wp-install':
     path    => '/usr/bin:/usr/local/bin',
-    cwd     => '/vagrant',
+    cwd     => "${::wwwroot}",
     user    => 'vagrant',
     unless  => 'wp core is-installed',
     command => "wp core install --url='${::wordpress_url}' --title='${::wordpress_title}' --admin_user='${::wordpress_admin_user}' --admin_password='${::wordpress_admin_password}' --admin_email='${::wordpress_admin_email}'",

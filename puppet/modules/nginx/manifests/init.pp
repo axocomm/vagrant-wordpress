@@ -33,7 +33,7 @@ class nginx {
 
   vhost {"${hostname}":
     name    => "${hostname}",
-    wwwroot => '/vagrant',
+    wwwroot => "${::wwwroot}",
     notify  => Service['nginx']
   }
 }
