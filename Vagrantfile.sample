@@ -64,6 +64,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ['modifyvm', :id, '--memory', '1024']
   end
 
+  config.vm.synced_folder 'www', '/www'
+
   # View the documentation for the provider you're using for more
   # information on available options.
 
@@ -84,7 +86,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       'wordpress_title'          => 'The Title',
       'wordpress_admin_user'     => 'vagrant',
       'wordpress_admin_password' => 'vagrant',
-      'wordpress_admin_email'    => "vagrant@#{config.vm.hostname}.dev"
+      'wordpress_admin_email'    => "vagrant@#{config.vm.hostname}.dev",
+      'wwwroot'                  => '/www'
     }
   end
 end
