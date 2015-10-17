@@ -4,7 +4,7 @@ class phpmyadmin {
     require => Package['php5-fpm']
   }
 
-  file {'/vagrant/phpmyadmin':
+  file {'/www/phpmyadmin':
     ensure  => 'link',
     target  => '/usr/share/phpmyadmin',
     require => Package['phpmyadmin']
