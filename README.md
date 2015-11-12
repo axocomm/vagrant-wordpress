@@ -23,6 +23,8 @@ To begin, copy `Vagrantfile.sample` to `Vagrantfile` and edit as needed. Optiona
 
 When complete, simply run `vagrant up` and if all goes well the environment should be ready to use in just a few minutes. phpMyAdmin will also be accessible at `/phpmyadmin`.
 
+The document root of the webserver is the `www` directory at the root of this project and is mapped to `/www` on the VM.
+
 #### Default Credentials
 Account     | Username  | Password
 ------------|-----------|---------
