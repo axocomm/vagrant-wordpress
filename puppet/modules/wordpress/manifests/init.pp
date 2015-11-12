@@ -42,7 +42,7 @@ class wordpress::setup {
     path    => '/usr/bin:/usr/local/bin',
     cwd     => "${::wwwroot}",
     unless  => 'test -f wp-config.php',
-    command => "wp core config --dbname=${::mysql_wordpress_dbname} --dbuser=${::mysql_wordpress_user} --dbpass=${::mysql_wordpress_password}",
+    command => "wp core config --dbname=${::mysql_wordpress_dbname} --dbuser=${::mysql_wordpress_user} --dbpass=${::mysql_wordpress_password} --extra-php=\"define('WP_DEBUG', true);\ndefine('JETPACK_DEV_DEBUG', true);\"",
     user    => 'vagrant',
     require => [Exec['create-wordpress-user'],
                 Exec['install-wp-cli'],
