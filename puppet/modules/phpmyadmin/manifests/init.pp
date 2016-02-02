@@ -12,7 +12,7 @@ class phpmyadmin {
   }
 
   file { '/etc/phpmyadmin/config-db.php':
-    source  => 'puppet:///modules/phpmyadmin/config-db.php',
+    content => template('phpmyadmin/config-db.php.erb'),
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
