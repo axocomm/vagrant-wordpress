@@ -4,5 +4,3 @@ Vagrantfile
 
 www/*
 !www/.gitkeep
-
-phpmyadmin
