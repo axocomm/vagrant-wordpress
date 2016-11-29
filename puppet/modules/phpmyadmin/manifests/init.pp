@@ -1,7 +1,7 @@
 class phpmyadmin {
   package { 'phpmyadmin':
     ensure  => installed,
-    require => [Package['php5-fpm'],
+    require => [Package['php5.6-fpm'],
                 Package['mariadb-server-10.0']],
   }
 

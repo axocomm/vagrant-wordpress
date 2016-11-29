@@ -3,7 +3,7 @@ class wordpress::wp-cli {
     path    => '/bin:/usr/bin',
     unless  => 'test -f /tmp/wp-cli.phar -o -f /usr/local/bin/wp',
     command => 'curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar > /tmp/wp-cli.phar',
-    require => Package['php5-fpm'],
+    require => Package['php5.6-fpm'],
   }
 
   exec { 'install-wp-cli':
@@ -22,7 +22,7 @@ class wordpress::setup {
     unless  => 'test -f wp-load.php',
     command => 'wp core download',
     require => [Exec['install-wp-cli'],
-                Package['php5-cli']],
+                Package['php5.6-cli']],
   }
 
   exec { 'create-wordpress-db':
