@@ -38,10 +38,10 @@ class mariadb::install {
   }
 }
 
-class mariadb::php5-mysql {
-  package { 'php5-mysql':
+class mariadb::php56-mysql {
+  package { 'php5.6-mysql':
     ensure  => installed,
-    require => Package['php5-fpm', 'mariadb-server-10.0'],
-    notify  => Service['php5-fpm'],
+    require => Package['php5.6-fpm', 'mariadb-server-10.0'],
+    notify  => Service['php5.6-fpm'],
   }
 }
